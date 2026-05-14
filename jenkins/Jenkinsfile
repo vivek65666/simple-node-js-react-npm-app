@@ -1,26 +1,15 @@
 pipeline {
     agent any
-    environment {
-        CI = 'true'
-    }
     stages {
         stage('Build') {
             steps {
-                // Use 'bat' for Windows Jenkins
-                bat 'npm install'
+                bat 'npm install' // Changed from sh to bat
             }
         }
         stage('Test') {
             steps {
-                // Updated path because we moved the file to root
+                // Ensure the path to the script is correct after the move
                 bat 'jenkins/scripts/test.sh' 
-            }
-        }
-        stage('Deliver') {
-            steps {
-                bat 'jenkins/scripts/deliver.sh'
-                input message: 'Finished using the web site? (Click "Proceed" to continue)'
-                bat 'jenkins/scripts/kill.sh'
             }
         }
     }
