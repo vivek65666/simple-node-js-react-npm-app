@@ -1,16 +1,24 @@
 pipeline {
     agent any
+    environment {
+        CI = 'true'
+    }
     stages {
         stage('Build') {
             steps {
-                bat 'npm install' 
+                bat 'npm install'
             }
         }
         stage('Test') {
             steps {
-                // Since we moved Jenkinsfile to the root, 
-                // we must point to the scripts inside the folder
-                bat 'jenkins/scripts/test.sh' 
+                // We use npm test directly now that the scripts folder is gone
+                bat 'npm test -- --watchAll=false' 
+            }
+        }
+        stage('Deploy') {
+            steps {
+                bat 'npm run build'
+                echo 'Project Built Successfully!'
             }
         }
     }
