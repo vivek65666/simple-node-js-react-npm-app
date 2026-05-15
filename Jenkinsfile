@@ -11,8 +11,8 @@ pipeline {
         }
         stage('Test') {
             steps {
-                // We use npm test directly now that the scripts folder is gone
-                bat 'npm test -- --watchAll=false' 
+                // Vitest uses 'run' to execute tests once without watching
+                bat 'npm test -- run' 
             }
         }
         stage('Deploy') {
