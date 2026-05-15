@@ -11,8 +11,8 @@ pipeline {
         }
         stage('Test') {
             steps {
-                // Vitest uses 'run' to execute tests once without watching
-                bat 'npm test -- run' 
+                // Simplified command to avoid double "run"
+                bat 'npm test' 
             }
         }
         stage('Deploy') {
